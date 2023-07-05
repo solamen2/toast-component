@@ -9,6 +9,7 @@ import {
 
 import VisuallyHidden from '../VisuallyHidden';
 
+import useKeydownHook from '../../hooks/useKeydownHook.js';
 import styles from './Toast.module.css';
 
 const ICONS_BY_VARIANT = {
@@ -21,19 +22,11 @@ const ICONS_BY_VARIANT = {
 function Toast({ variant, id, closeToast, children }) {
   const Icon = ICONS_BY_VARIANT[variant];
 
-  const escKeyHandler = React.useCallback((event) => {
-    if (event.key === 'Escape') {
-      closeToast(id);
-    }
-  }, []);
+  const escKeyHandler = () => {
+    closeToast(id);
+  };
 
-  React.useEffect(() => {
-    document.addEventListener('keydown', escKeyHandler, false);
-
-    return () => {
-      document.removeEventListener('keydown', escKeyHandler, false);
-    };
-  }, [escKeyHandler]);
+  useKeydownHook('Escape', escKeyHandler);
 
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
