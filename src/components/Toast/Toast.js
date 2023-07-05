@@ -22,9 +22,9 @@ const ICONS_BY_VARIANT = {
 function Toast({ variant, id, closeToast, children }) {
   const Icon = ICONS_BY_VARIANT[variant];
 
-  const escKeyHandler = () => {
+  const escKeyHandler = React.useCallback(() => {
     closeToast(id);
-  };
+  }, [closeToast, id]);
 
   useKeydownHook('Escape', escKeyHandler);
 
