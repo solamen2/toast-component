@@ -1,13 +1,13 @@
 import React from 'react';
 
-function useKeydownHook(key, action) {
+function useKeydown(key, callback) {
   const keyHandler = React.useCallback(
     (event) => {
       if (event.key === key) {
-        action();
+        callback();
       }
     },
-    [key, action]
+    [key, callback]
   );
 
   React.useEffect(() => {
@@ -21,4 +21,4 @@ function useKeydownHook(key, action) {
   return null;
 }
 
-export default useKeydownHook;
+export default useKeydown;

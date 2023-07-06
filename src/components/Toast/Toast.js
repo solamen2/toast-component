@@ -9,7 +9,7 @@ import {
 
 import VisuallyHidden from '../VisuallyHidden';
 
-import useKeydownHook from '../../hooks/useKeydownHook.js';
+import useKeydown from '../../hooks/use-keydown.js';
 import styles from './Toast.module.css';
 
 const ICONS_BY_VARIANT = {
@@ -26,7 +26,7 @@ function Toast({ variant, id, closeToast, children }) {
     closeToast(id);
   }, [closeToast, id]);
 
-  useKeydownHook('Escape', escKeyHandler);
+  useKeydown('Escape', escKeyHandler);
 
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
@@ -34,7 +34,7 @@ function Toast({ variant, id, closeToast, children }) {
         <Icon size={24} />
       </div>
       <p className={styles.content}>
-        <VisuallyHidden>{variant}</VisuallyHidden>
+        <VisuallyHidden>{variant} - </VisuallyHidden>
         {children}
       </p>
       <button

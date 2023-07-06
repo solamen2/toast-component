@@ -3,22 +3,18 @@ import React from 'react';
 export const ToastContext = React.createContext();
 
 function ToastProvider({ children }) {
-  const [message, setMessage] = React.useState('');
-  const [variant, setVariant] = React.useState('notice');
   const [toasts, setToasts] = React.useState([]);
 
-  function handleForm(event) {
-    event.preventDefault();
-    const newToasts = [...toasts];
-    newToasts.push({
-      id: crypto.randomUUID(),
-      variant: variant,
-      message: message,
-    });
+  function openToast(message, variant) {
+    const newToasts = [
+      ...toasts,
+      {
+        id: crypto.randomUUID(),
+        message: message,
+        variant: variant,
+      },
+    ];
     setToasts(newToasts);
-
-    setMessage('');
-    setVariant('notice');
   }
 
   function closeToast(id) {
@@ -26,12 +22,8 @@ function ToastProvider({ children }) {
   }
 
   const toastValue = {
-    message,
-    setMessage,
-    variant,
-    setVariant,
     toasts,
-    handleForm,
+    openToast,
     closeToast,
   };
 
